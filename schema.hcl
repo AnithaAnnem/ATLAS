@@ -10,9 +10,13 @@ table "users" {
     type = varchar(20)
     null = true
   }
-  # ADD THIS NEW COLUMN HERE:
   column "age" {
     type = int
+    null = true
+  }
+  # ADD THIS NEW COLUMN:
+  column "email" {
+    type = varchar(255)
     null = true
   }
 }
