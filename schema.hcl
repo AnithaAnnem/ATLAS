@@ -28,4 +28,3 @@ table "posts" {
 }
 
 schema "public" {}
-schema "atlas_schema_dev" {}
