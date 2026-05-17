@@ -10,8 +10,16 @@ pipeline {
 
         stage('Install Atlas CLI') {
             steps {
-                // Downloads and installs the Atlas CLI onto your Jenkins runner
-                sh 'curl -sSf https://atlasgo.sh | sh'
+                script {
+                    // Check if Atlas is already installed on the system to avoid long downloads
+                    def atlasExists = sh(script: 'command -v atlas', returnStatus: true) == 0
+                    if (atlasExists) {
+                        echo "Atlas CLI is already installed, skipping download."
+                    } else {
+                        echo "Installing Atlas CLI..."
+                        sh 'curl -sSf https://atlasgo.sh | sh'
+                    }
+                }
             }
         }
 
