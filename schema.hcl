@@ -10,9 +10,13 @@ table "users" {
     type = varchar(20)
     null = true
   }
+  # ADD THIS NEW COLUMN HERE:
+  column "age" {
+    type = int
+    null = true
+  }
 }
 
-# ADD THIS NEW TABLE BLOCK:
 table "posts" {
   schema = schema.public
   column "id" {
