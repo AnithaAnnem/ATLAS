@@ -1,10 +1,10 @@
-env "prod" {
-  # Tells Atlas to read your schema file directly
+env "local" {
   src = "file://schema.hcl"
   
-  # Connects to production using your Jenkins secret
-  url = env("PROD_DATABASE_URL")
+  # Connects directly to your PostgreSQL 14 instance
+  url = "postgres://postgres:mysecretpassword@127.0.0.1:5432/testdb?sslmode=disable"
   
-  # A temporary spin-up database Atlas uses to test changes safely
-  dev = "docker://postgres/15/dev" 
+  # Reuses your local DB to calculate changes safely without Docker
+  dev = "postgres://postgres:mysecretpassword@127.0.0.1:5432/testdb?sslmode=disable"
 }
+
