@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Change the ID here if you named your Jenkins credential differently
-        PROD_DATABASE_URL = credentials('prod-db-url') 
-    }
-
     stages {
         stage('Checkout Code') {
             steps {
@@ -15,13 +10,14 @@ pipeline {
 
         stage('Install Atlas CLI') {
             steps {
+                // Downloads and installs the Atlas CLI onto your Jenkins runner
                 sh 'curl -sSf https://atlasgo.sh | sh'
             }
         }
 
         stage('Auto-Apply Changes') {
             steps {
-                // CHANGED: --env prod updated to --env local to match your atlas.hcl
+                // Executes Atlas using your local database settings from atlas.hcl
                 sh 'atlas schema apply --env local --auto-approve'
             }
         }
