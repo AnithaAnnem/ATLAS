@@ -1,10 +1,12 @@
 env "local" {
-  # Points directly to your schema file in the repository
   src = "file://schema.hcl"
   
-  # Target Database: Where your actual tables will be built
-  url = "postgres://postgres:mysecretpassword@127.0.0.1:5432/testdb?sslmode=disable"
+  # Target Database: Explicitly tell Atlas to ONLY look inside the public schema
+  url = "postgres://postgres:mysecretpassword@127.0.0.1:5432/testdb?search_path=public&sslmode=disable"
   
-  # FIX: Clean sandbox path using the search_path parameter string
+  # Isolated Sandbox Workspace
   dev = "postgres://postgres:mysecretpassword@127.0.0.1:5432/testdb?search_path=atlas_schema_dev&sslmode=disable"
+
+  # FIX CODE: This line stops Atlas from dropping your dev schema on successful runs!
+  schemas = ["public"]
 }
