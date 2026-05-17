@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // This pulls your database login string securely from Jenkins
+        // Change the ID here if you named your Jenkins credential differently
         PROD_DATABASE_URL = credentials('prod-db-url') 
     }
 
@@ -21,8 +21,8 @@ pipeline {
 
         stage('Auto-Apply Changes') {
             steps {
-                // Jenkins compares schema.hcl against production and updates it
-                sh 'atlas schema apply --env prod --auto-approve'
+                // CHANGED: --env prod updated to --env local to match your atlas.hcl
+                sh 'atlas schema apply --env local --auto-approve'
             }
         }
     }
